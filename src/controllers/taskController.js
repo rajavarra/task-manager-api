@@ -3,8 +3,10 @@ const { customBodyValidator } = require('../database/utils');
 const taskService = require("../services/taskService");
 
 const getAllTasks = (req, res) => {
+    const { completed, sort } = req.query;
+
     try {
-        const allTasks = taskService.getAllTasks();
+        const allTasks = taskService.getAllTasks(completed, sort);
         res.status(200).send(allTasks);
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });
@@ -13,12 +15,12 @@ const getAllTasks = (req, res) => {
 
 
 const getOneTask = (req, res) => {
-    const { params: { taskId }, } = req;
-    if (!uuidValidate(taskId)) {
+    const { params: { id }, } = req;
+    if (!uuidValidate(id)) {
         return res.status(400).send({ error: "Invalid task ID parameter" });
     }
     try {
-        const task = taskService.getOneTask(taskId);
+        const task = taskService.getOneTask(id);
         if (!task) {
             return res.status(404).send({ error: "Not Found" })
         }
@@ -48,8 +50,8 @@ const createNewtask = (req, res) => {
 }
 
 const updateOneTask = (req, res) => {
-    const { body, params: { taskId } } = req;
-    if (!uuidValidate(taskId)) {
+    const { body, params: { id } } = req;
+    if (!uuidValidate(id)) {
         return res.status(400).send({ error: "Invalid task ID parameter" });
     }
 
@@ -61,7 +63,7 @@ const updateOneTask = (req, res) => {
     }
     try {
         customBodyValidator(updateTask);
-        const updatedTask = taskService.updateOneTask(taskId, updateTask);
+        const updatedTask = taskService.updateOneTask(id, updateTask);
         res.status(201).send(updatedTask);
     } catch (error) {
         res.status(error?.status || 500).send({ error: error?.message || error });
@@ -69,21 +71,34 @@ const updateOneTask = (req, res) => {
 };
 
 const deleteOneTask = (req, res) => {
-    const { params: { taskId } } = req;
-    if (!uuidValidate(taskId)) {
+    const { params: { id } } = req;
+    if (!uuidValidate(id)) {
         return res.status(400).send({ error: "Invalid task ID parameter" });
     }
     try {
-        taskService.deleteOneTask(taskId);
+        taskService.deleteOneTask(id);
         res.status(204).send({});
     } catch (error) {
         res.status(error?.status || 500).send({ error: error?.message || error });
     }
 };
+
+const getTasksWithPriority = (req, res) => {
+    const { params: { level } } = req;
+
+    //TODO : complete the controller and try to pass the level, hanle error to show to users
+    try {
+
+    } catch (error) {
+
+    }
+    return;
+}
 module.exports = {
     getAllTasks,
     getOneTask,
     createNewtask,
     updateOneTask,
     deleteOneTask,
+    getTasksWithPriority,
 }

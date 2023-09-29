@@ -1,8 +1,25 @@
 const DB = require("./tasksDb.json");
 const { saveToDatabase } = require("./utils");
 
-const getAllTasks = () => {
-    return DB.tasks;
+const getAllTasks = (completed, sort) => {
+
+    let filteredTasks = DB.tasks;
+    if (completed !== undefined) {
+        const isCompleted = completed.toLowerCase() === 'true';
+        filteredTasks = DB.tasks.filter(task => task.completed === isCompleted);
+    }
+
+    if (sort === 'asc') {
+        filteredTasks.sort((a, b) => {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+    } else if (sort === 'desc') {
+        filteredTasks.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+    }
+
+    return filteredTasks;
 }
 
 const getOneTask = (taskId) => {
@@ -54,7 +71,8 @@ const updateOneTask = (taskId, bodyToUpdate) => {
 
         const updatedTask = {
             ...DB.tasks[indexFromDb],
-            ...bodyToUpdate
+            ...bodyToUpdate,
+            updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
         }
         DB.tasks[indexFromDb] = updatedTask;
         saveToDatabase(DB);
@@ -87,10 +105,16 @@ const deleteOneTask = (taskId) => {
     }
 }
 
+const getTasksWithPriority = (level) => {
+    //TODO : filter tasks with level and return those
+    return;
+}
+
 module.exports = {
     getAllTasks,
     createNewTask,
     getOneTask,
     updateOneTask,
     deleteOneTask,
+    getTasksWithPriority,
 }

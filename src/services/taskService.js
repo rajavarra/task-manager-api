@@ -1,8 +1,8 @@
 const Task = require("../database/Task");
 const { v4: uuid } = require('uuid');
 
-const getAllTasks = () => {
-    const allTasks = Task.getAllTasks();
+const getAllTasks = (completed, sort) => {
+    const allTasks = Task.getAllTasks(completed, sort);
     return allTasks;
 }
 
@@ -15,6 +15,8 @@ const createNewTask = (newTask) => {
     const task = {
         ...newTask,
         id: uuid(),
+        createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+        updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
     }
     try {
         const createdTask = Task.createNewTask(task);
@@ -42,10 +44,16 @@ const deleteOneTask = (taskId) => {
     }
 };
 
+const getTasksWithPriority = (level) => {
+    //TODO : validate the level and handle errors and also conver it to lowercase
+    return;
+}
+
 module.exports = {
     getAllTasks,
     getOneTask,
     createNewTask,
     updateOneTask,
     deleteOneTask,
+    getTasksWithPriority
 }
