@@ -45,8 +45,21 @@ const deleteOneTask = (taskId) => {
 };
 
 const getTasksWithPriority = (level) => {
-    //TODO : validate the level and handle errors and also conver it to lowercase
-    return;
+
+    const pLevel = level.toLowerCase();
+    const priorityList = ['low', 'medium', 'high'];
+    if (!priorityList.includes(pLevel)) {
+        throw {
+            status: 400,
+            message: 'Please provide valid priority level: low or medium or high.',
+        }
+    }
+    try {
+        const priorityTasks = Task.getTasksWithPriority(pLevel);
+        return priorityTasks;
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports = {

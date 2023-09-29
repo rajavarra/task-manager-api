@@ -106,8 +106,14 @@ const deleteOneTask = (taskId) => {
 }
 
 const getTasksWithPriority = (level) => {
-    //TODO : filter tasks with level and return those
-    return;
+
+    try {
+        let filteredPriorityTasks = DB.tasks.filter(task => task.priority === level);
+        return filteredPriorityTasks;
+    } catch (error) {
+        throw { status: error?.status || 500, error: error?.message || error };
+    }
+
 }
 
 module.exports = {

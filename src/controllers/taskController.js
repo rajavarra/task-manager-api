@@ -85,14 +85,15 @@ const deleteOneTask = (req, res) => {
 
 const getTasksWithPriority = (req, res) => {
     const { params: { level } } = req;
-
-    //TODO : complete the controller and try to pass the level, hanle error to show to users
-    try {
-
-    } catch (error) {
-
+    if (!level) {
+        return res.status(400).send("Priority level is required.")
     }
-    return;
+    try {
+        const priorityTasks = taskService.getTasksWithPriority(level);
+        res.status(200).send(priorityTasks);
+    } catch (error) {
+        res.status(error?.status || 500).send({ error: error?.message || error });
+    }
 }
 module.exports = {
     getAllTasks,

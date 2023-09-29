@@ -30,6 +30,7 @@ To set up and run the project on your local machine, follow these steps:
 ## Endpoints
 
 - **GET /tasks:** Retrieve all tasks.
+- **GET /tasks?completed={ture||false}&&sort={asc||desc}:** Filters the tasks based on completed status and/or sorts with created date.
 - **GET /tasks/:id:** Retrieve a single task by its ID.
 - **POST /tasks:** Create a new task.
   - **Body:**
@@ -38,6 +39,7 @@ To set up and run the project on your local machine, follow these steps:
   - **Body:**
     `{ "title": "Updated Task Title", "description": "Updated Task Description", "completed": false ,"priority": "high or low or medium"}`
 - **DELETE /tasks/:id:** Delete a task by its ID.
+- **GET /tasks/priority/:level** Retrieve all tasks based on priority level low or medium or high.
 
 ## Data Storage
 

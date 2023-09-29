@@ -17,6 +17,15 @@
       "id": "3404fc18-4e38-40cb-be06-5d49889412cd",
       "createdAt": "9/29/2023, 4:16:47 PM",
       "updatedAt": "9/29/2023, 4:16:47 PM"
+    },
+    {
+      "title": "Morning Routine to check mails",
+      "description": "Check all the mails after breakfast.",
+      "completed": false,
+      "priority": "medium",
+      "id": "4cb8185a-57ac-4a15-98c1-e0ad5715d143",
+      "createdAt": "9/29/2023, 7:18:43 PM",
+      "updatedAt": "9/29/2023, 7:18:43 PM"
     }
   ]
 }
