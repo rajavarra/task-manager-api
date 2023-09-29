@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "id": "d63905c1-2a2b-4c87-9431-9712d582c387",
-      "title": "Morning Routine",
-      "description": "Start the day with a healthy breakfast and a short workout.",
-      "completed": false,
-      "priority": "high"
-    },
-    {
       "id": "45e1c5a4-6f07-4d3a-9e14-5e943e69a7f2",
       "title": "Work Tasks",
       "description": "Complete important work tasks and check emails.",
