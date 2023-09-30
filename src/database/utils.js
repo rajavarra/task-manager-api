@@ -7,26 +7,25 @@ const saveToDatabase = (DB) => {
 
 const customBodyValidator = (task) => {
 
-    const { title, description, completed } = task;
-    if (!title || validator.isEmpty(title)) {
-        throw {
-            status: 400,
-            message: 'Title is required.'
+
+    const requiredFields = ['title', 'description', 'completed'];
+
+    for (const field of requiredFields) {
+        if (!task[field] || validator.isEmpty(String(task[field]))) {
+            throw {
+                status: 400,
+                message: `${field} is required.`
+            }
         }
     }
 
-    if (!description || validator.isEmpty(description)) {
+    if (typeof task.completed !== 'boolean') {
         throw {
             status: 400,
-            message: 'Description is required.'
+            message: 'Completed should be a boolean.'
         }
     }
-    if (typeof completed !== 'boolean') {
-        throw {
-            status: 400,
-            message: 'Completed is required and it should be boolean.'
-        }
-    }
+
 }
 
 module.exports = {
